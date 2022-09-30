@@ -1,3 +1,5 @@
+const ISS_ID = "1998-067A";
+
 // Initialize the Cesium viewer.
 Cesium.Ion.defaultAccessToken =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkYjliNWU5ZS1iYjA1LTRkZGEtYWQwMi0xZDg3NzZlZGRjOTYiLCJpZCI6MTA3NjkxLCJpYXQiOjE2NjI5NTIyODF9.eocbtP_o4-J7GNjEROssPqEKxrhsFaXqZf20ZdxjrFo";
@@ -17,8 +19,17 @@ const viewer = new Cesium.Viewer("cesiumContainer", {
 // These 2 lines are published by NORAD and allow us to predict where
 // the ISS is at any given moment. They are regularly updated.
 // Get the latest from: https://celestrak.com/satcat/tle.php?CATNR=25544.
-const ISS_TLE = `1 25544U 98067A   21121.52590485  .00001448  00000-0  34473-4 0  9997
-    2 25544  51.6435 213.5204 0002719 305.2287 173.7124 15.48967392281368`;
+
+let r = await fetch("/api/issdata");
+let data = await r.json();
+console.log(data.data);
+// let matcher = /ISS \(ZARYA\)(.*)\\n[A-Z]/;
+let matcher = /ISS \(ZARYA\).*\r\n(.*\r\n.*)/;
+let results = data.data.match(matcher);
+let reqText = results[1];
+console.log(reqText);
+
+const ISS_TLE = reqText;
 const satrec = satellite.twoline2satrec(
   ISS_TLE.split("\n")[0].trim(),
   ISS_TLE.split("\n")[1].trim()
