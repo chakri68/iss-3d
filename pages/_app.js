@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import Head from "next/head";
 import Script from "next/script";
 // import "bulma/css/bulma.css";
+import "semantic-ui-css/semantic.min.css";
 
 function MyApp({ Component, pageProps }) {
   return (
