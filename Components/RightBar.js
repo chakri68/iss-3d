@@ -12,7 +12,9 @@ import {
   Segment,
   Input,
   List,
+  Divider,
   Container,
+  Checkbox,
 } from "semantic-ui-react";
 
 export default function RightBar() {
@@ -41,7 +43,7 @@ export default function RightBar() {
       },
       content: {
         content: (
-          <Segment inverted loading={loading}>
+          <Segment inverted loading={loading} textAlign="center">
             {passData.length == 0 ? (
               <>
                 <Message
@@ -95,6 +97,26 @@ export default function RightBar() {
         ),
       },
     },
+    {
+      key: "panel-2",
+      title: {
+        content: <Label color="blue" content="Map options" />
+      },
+      content: {
+        content: (
+          <Segment textAlign="center">
+            <Checkbox defaultChecked label='Enable path lines' className="pathLineToggle" onChange={(e, data) => {
+              let approachPathEntity = window.approachPathEntity;
+              if (data.checked) {
+                if (!window.viewer.entities.contains(approachPathEntity)) window.viewer.entities.add(approachPathEntity);
+              } else {
+                window.viewer.entities.remove(approachPathEntity);
+              }
+            }} />
+          </Segment>
+        )
+      }
+    }
   ];
   // let panels = _.times(3, (i) => ({
   //   key: `panel-${i}`,
@@ -106,13 +128,14 @@ export default function RightBar() {
   //   },
   // }));
   return (
-    <>
+    <Segment padded inverted>
       <Menu.Item>
         <Header inverted as="h2">
           More Options
         </Header>
       </Menu.Item>
-      <Accordion inverted fluid panels={panels}></Accordion>
-    </>
+      <Divider />
+      <Accordion exclusive fluid inverted panels={panels}></Accordion>
+    </Segment>
   );
 }

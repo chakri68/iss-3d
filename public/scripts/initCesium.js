@@ -34,9 +34,10 @@ const satrec = satellite.twoline2satrec(
   ISS_TLE.split("\n")[0].trim(),
   ISS_TLE.split("\n")[1].trim()
 );
+let positions = [];
 // Give SatelliteJS the TLE's and a specific time.
 // Get back a longitude, latitude, height (km).
-// We're going to generate a position every 10 seconds from now until 6 seconds from now.
+// We're going to generate a position every 1 second from now until 6 seconds from now.
 const totalSeconds = 60 * 60 * 6;
 const timestepInSeconds = 1;
 const start = Cesium.JulianDate.fromDate(new Date());
@@ -67,12 +68,22 @@ for (let i = 0; i < totalSeconds; i += timestepInSeconds) {
     p.height * 1000
   );
   positionsOverTime.addSample(time, position);
+  positions.push(position)
 }
 
 // const resource = await Cesium.IonResource.fromAssetId(1337140);
 // const entity = viewer.entities.add({
 //   model: { uri: resource },
 // });
+
+// ISS trajectory
+let approachPathEntity = viewer.entities.add({
+  polyline: {
+    positions: positions,
+    material: Cesium.Color.WHITE,
+    width: 2,
+  }
+});
 
 async function loadModel() {
   // Load the glTF model from Cesium ion.
@@ -99,6 +110,7 @@ const satellitePoint = viewer.entities.add({
   point: { pixelSize: 5, color: Cesium.Color.RED },
 });
 
+
 // Set the camera to follow the satellite
 // viewer.trackedEntity = satellitePoint;
 // Wait for globe to load then zoom out
@@ -111,3 +123,22 @@ viewer.scene.globe.tileLoadProgressEvent.addEventListener(() => {
     document.querySelector("#loading").classList.toggle("disappear", true);
   }
 });
+
+// viewer.scene.preUpdate.addEventListener(function (scene, time) {
+//   console.log(viewer.clock.currentTime)
+//   const jsDate = viewer.clock.currentTime;
+
+//   const positionAndVelocity = satellite.propagate(satrec, jsDate);
+//   const gmst = satellite.gstime(jsDate);
+//   const p = satellite.eciToGeodetic(positionAndVelocity.position, gmst);
+
+//   const position = Cesium.Cartesian3.fromRadians(
+//     p.longitude,
+//     p.latitude,
+//     p.height * 1000
+//   );
+//   positions.push(position);
+// });
+
+window.viewer = viewer;
+window.approachPathEntity = approachPathEntity;
