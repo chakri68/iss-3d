@@ -94,10 +94,10 @@ async function loadModel() {
 loadModel();
 
 // Visualize the satellite with a red dot.
-// const satellitePoint = viewer.entities.add({
-//   position: positionsOverTime,
-//   point: { pixelSize: 5, color: Cesium.Color.RED },
-// });
+const satellitePoint = viewer.entities.add({
+  position: positionsOverTime,
+  point: { pixelSize: 5, color: Cesium.Color.RED },
+});
 
 // Set the camera to follow the satellite
 // viewer.trackedEntity = satellitePoint;
