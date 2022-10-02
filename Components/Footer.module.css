@@ -1,0 +1,6 @@
+.footer {
+  position: absolute;
+  top: calc(100vh - 50%);
+  text-align: center;
+  width: 95%;
+}

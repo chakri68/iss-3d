@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Footer from "./Footer";
 import _ from "lodash";
 import {
   Accordion,
@@ -144,6 +145,7 @@ export default function RightBar() {
       </Menu.Item>
       <Divider />
       <Accordion exclusive fluid inverted panels={panels}></Accordion>
+      <Footer />
     </Segment>
   );
 }
