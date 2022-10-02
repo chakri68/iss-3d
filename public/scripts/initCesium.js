@@ -139,6 +139,6 @@ viewer.scene.globe.tileLoadProgressEvent.addEventListener(() => {
 //   );
 //   positions.push(position);
 // });
-
+window.Cesium = Cesium;
 window.viewer = viewer;
 window.approachPathEntity = approachPathEntity;

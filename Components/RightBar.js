@@ -34,7 +34,10 @@ export default function RightBar() {
     console.log(data);
     return data.data;
   }
-
+  function handleViewChange(dateObj) {
+    window.viewer.clock.currentTime = window.Cesium.JulianDate.fromDate(dateObj);
+    window.viewer.clock.multiplier = 1;
+  }
   let panels = [
     {
       key: "panel-1",
@@ -83,9 +86,9 @@ export default function RightBar() {
                   header="ISS will pass over your location at"
                   content={passData.map((pass) => (
                     <Segment vertical key={pass.start} textAlign="left">
-                      Start: {new Date(pass.start).toUTCString()}
+                      <a onClick={() => handleViewChange(new Date(pass.start))}>Start: {new Date(pass.start).toUTCString()}</a>
                       <br />
-                      End: {new Date(pass.end).toUTCString()}
+                      <a onClick={() => handleViewChange(new Date(pass.end))}>End: {new Date(pass.end).toUTCString()}</a>
                       <br />
                       Max Elevation: {pass.max_elevation} kms
                     </Segment>
