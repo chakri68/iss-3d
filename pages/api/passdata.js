@@ -27,8 +27,9 @@ export default async function handler(req, res) {
             `${SATELLITE_API}/${ISS_NORAD_ID}/${d[0].lat}/${d[0].lon}.json`
           );
           data = await r2.json();
+          data = { data, location: d[0] };
         }
-        res.status(200).json({ success: true, data });
+        res.status(200).json({ success: true, ...data });
       } catch (error) {
         console.log(error);
         res.status(400).json({ success: false });
