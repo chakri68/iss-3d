@@ -98,7 +98,7 @@ async function loadModel() {
     // Automatically compute the orientation from the position.
     orientation: new Cesium.VelocityOrientationProperty(positionsOverTime),
   });
-
+  window.airplaneEntity = airplaneEntity;
   viewer.trackedEntity = airplaneEntity;
 }
 

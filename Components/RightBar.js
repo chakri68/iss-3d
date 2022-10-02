@@ -104,7 +104,7 @@ export default function RightBar() {
       },
       content: {
         content: (
-          <Segment textAlign="center">
+          <Segment textAlign="center" stacked>
             <Checkbox defaultChecked label='Enable path lines' className="pathLineToggle" onChange={(e, data) => {
               let approachPathEntity = window.approachPathEntity;
               if (data.checked) {
@@ -113,6 +113,11 @@ export default function RightBar() {
                 window.viewer.entities.remove(approachPathEntity);
               }
             }} />
+            <Segment raised>
+              <Button fluid onClick={() => {
+                window.viewer.trackedEntity = window.airplaneEntity;
+              }} >Go to ISS</Button>
+            </Segment>
           </Segment>
         )
       }
