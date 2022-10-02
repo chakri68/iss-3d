@@ -10,11 +10,15 @@ import {
   Checkbox,
 } from "semantic-ui-react";
 import { useState } from "react";
+import Head from "next/head";
 
 export default function Home() {
   let [visible, setVisible] = useState(false);
   return (
     <>
+      <Head>
+        <title>ISS - 3D</title>
+      </Head>
       <div id="loading">
         <h1>Loading...</h1>
       </div>
