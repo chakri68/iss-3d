@@ -8,6 +8,7 @@ import {
   Header,
   Image,
   Checkbox,
+  List,
 } from "semantic-ui-react";
 import { useState } from "react";
 import Head from "next/head";
@@ -30,7 +31,7 @@ export default function Home() {
       <Sidebar.Pushable as={Segment}>
         <Sidebar
           direction="right"
-          as={Menu}
+          as={Segment}
           animation="overlay"
           icon="labeled"
           inverted
