@@ -33,6 +33,7 @@ export default function RightBar() {
     });
     let data = await res.json();
     console.log(data);
+    setLocation(data.location.display_name);
     return data.data;
   }
   function handleViewChange(dateObj) {
@@ -84,7 +85,7 @@ export default function RightBar() {
                 </Button>
                 <Message
                   info
-                  header="ISS will pass over your location at"
+                  header={<>ISS will pass over your <a title={location}>location</a> at</>}
                   content={passData.map((pass) => (
                     <Segment vertical key={pass.start} textAlign="left">
                       <a onClick={() => handleViewChange(new Date(pass.start))}>Start: {new Date(pass.start).toUTCString()}</a>
